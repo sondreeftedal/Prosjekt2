@@ -1,53 +1,58 @@
 package com.example.tictactoe
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.tictactoe.API.Data.Game
+import com.example.tictactoe.API.Data.GameState
 import com.example.tictactoe.API.GameService
 import com.example.tictactoe.API.GameServiceCallback
+import com.example.tictactoe.Dialogs.CreateGameDialog
+import com.example.tictactoe.Dialogs.GameDialogListener
+import com.example.tictactoe.Dialogs.JoinGameDialog
 import com.example.tictactoe.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GameDialogListener {
     val TAG:String = "MainActivity"
 
 
     lateinit var binding: ActivityMainBinding
-    var startState:List<List<Int>> = listOf(listOf(0,0,0), listOf(0,0,0), listOf(0,0,0))
-    var testState:List<List<Int>> = listOf(listOf(1,0,1), listOf(0,1,0), listOf(1,1,1))
+    var startState:GameState = mutableListOf(mutableListOf(0,0,0), mutableListOf(0,0,0), mutableListOf(0,0,0))
+    var testState:GameState = mutableListOf(mutableListOf(1,0,1), mutableListOf(0,1,0), mutableListOf(1,1,1))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        GameService.pollGame("fzjteg", {state: Game?, errorCode: Int? ->
-
-        })
+        binding.createGameButton.setOnClickListener {
+            createNewGame()
+        }
+        binding.joinGameButton.setOnClickListener {
+            joinGame()
+        }
     }
 
 
 
 
     private fun createNewGame(){
-        //val dlg = CreateGameDialog()
-        //dlg.show(supportFragmentManager,"CreateGameDialogFragment")
-
-
+        val dlg = CreateGameDialog()
+        dlg.show(supportFragmentManager,"CreateGameDialog")
     }
 
     private fun joinGame(){
-        //GameService.createGame("Test",startState, Unit)
+        val dialog = JoinGameDialog()
+        dialog.show(supportFragmentManager, "JoinGameDialog")
     }
-/*
+
+
     override fun onDialogCreateGame(player: String) {
-        Log.d(TAG,player)
+         GameManager.createGame(player, this)
     }
 
     override fun onDialogJoinGame(player: String, gameId: String) {
-        Log.d(TAG, "$player $gameId")
-    }*/
-
-    fun callback(game: Game,errorCode:Int?){
-        TODO()
+        GameManager.joinGame(player,gameId, this)
     }
 }

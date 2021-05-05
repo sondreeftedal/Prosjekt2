@@ -1,8 +1,10 @@
 package com.example.tictactoe.API
 
 import android.util.Log
+import com.android.volley.NetworkResponse
 import com.android.volley.Request
 import com.android.volley.RequestQueue
+import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -15,7 +17,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-typealias GameServiceCallback = (state: Game?, errorCode:Int? ) -> Unit
+typealias GameServiceCallback = (game: Game?, errorCode:Int? ) -> Unit
 
 lateinit var gameinstance: Game
 
@@ -44,10 +46,10 @@ object GameService {
 
 
         val request = object : JsonObjectRequest(Request.Method.POST,url, requestData,
-            {
+            Response.Listener{
                 // Success game created.
                 val game = Gson().fromJson(it.toString(0), Game::class.java)
-                callback(game,0)
+                callback(game,null)
 
             }, {
                 // Error creating new game.
@@ -60,8 +62,8 @@ object GameService {
                 headers["Game-Service-Key"] = context.getString(R.string.game_service_key)
                 return headers
             }
-        }
 
+        }
 
         requestQue.add(request)
     }
@@ -110,6 +112,8 @@ object GameService {
             }
         }
         requestQue.add(request)
+
+
     }
     fun pollGame(gameId: String,callback:GameServiceCallback){
         val url = APIEndpoints.CREATE_GAME.url.plus("/$gameId").plus("/poll")
