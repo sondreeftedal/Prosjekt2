@@ -1,13 +1,13 @@
 # Tic tac toe
 
-#Fremgangsmåte
+# Fremgangsmåte
 I denne oppgaven fikk vi på forhånd laget en backend for oss. For å benytte oss av denne brukte vi API-kall gjennom Volley. Disse kallene ble plassert i funksjoner i en egen Service-klasse. Appen består av 3 aktiviteter og to ulike dialog fragments. Brukeren vil først få opp en startside der de kan velge mellom å lage et nytt spill eller bli med i et eksisterende spill. 
 
 Nøkkelen til kommunikasjonen mellom spillerene ligger i POLL-requesten til APIen. Hvert 5.sekund vil en countdownTimer utløse denne poll-funksjonen og oppdatere verdiene slik at to enheter kan spille mot hverandre. Først vil en spiller opprette et spill, et textview med teksten "Waiting for opponent.." vil oppdateres med motstanderens navn når vi får et callback med en ny spiller. Denne callbacken vil også oppdatere symbolene i rutene, sjekke om en spiller har vunnet og holder kontroll på hvilken spiller som skal ha neste trekk. 
 
 Når en spiller har fått tre på rad, vil det startes opp en ny activity som annonserer vinneren. Dersom det blir uavgjort, vil det bare stå "Draw" på skjermen.
 
-#Skjermbilder: 
+# Skjermbilder: 
 Startskjerm:
 ![Screenshot_1620729480](https://user-images.githubusercontent.com/66576015/117802683-11c53300-b256-11eb-8b83-48aad04c8510.png)
 
