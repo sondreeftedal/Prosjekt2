@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity(), GameDialogListener {
 
 
     lateinit var binding: ActivityMainBinding
-    var startState:GameState = mutableListOf(mutableListOf(0,0,0), mutableListOf(0,0,0), mutableListOf(0,0,0))
-    var testState:GameState = mutableListOf(mutableListOf(1,0,1), mutableListOf(0,1,0), mutableListOf(1,1,1))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
