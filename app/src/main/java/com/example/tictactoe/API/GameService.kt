@@ -46,7 +46,7 @@ object GameService {
 
 
         val request = object : JsonObjectRequest(Request.Method.POST,url, requestData,
-            Response.Listener{
+            {
                 // Success game created.
                 val game = Gson().fromJson(it.toString(0), Game::class.java)
                 callback(game,null)
